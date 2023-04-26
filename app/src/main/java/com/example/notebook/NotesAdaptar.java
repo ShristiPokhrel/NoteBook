@@ -12,8 +12,10 @@ import java.util.ArrayList;
 
 public class NotesAdaptar extends RecyclerView.Adapter<NotesAdaptar.NotesViewHolder> {
     ArrayList<Notes> notes;
-    public  NotesAdaptar(ArrayList<Notes>notes){
+    NoteListner noteListner;
+    public  NotesAdaptar(ArrayList<Notes>notes , NoteListner noteListner){
         this.notes = notes;
+        this.noteListner = noteListner;
     }
     @NonNull
     @Override
@@ -50,6 +52,12 @@ public class NotesAdaptar extends RecyclerView.Adapter<NotesAdaptar.NotesViewHol
             title.setText(note.getTitle());
             category.setText(note.category);
             description.setText(note.dis);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    noteListner.onNoteClick(note);
+                }
+            });
         }
     }
 }
